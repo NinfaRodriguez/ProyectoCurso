@@ -49,8 +49,6 @@
             lblEditar = new Label();
             label11 = new Label();
             txtSalarioEmpleado = new TextBox();
-            btnCargarConfiguracion = new Button();
-            btnGuardartxt = new Button();
             SuspendLayout();
             // 
             // lblIngresar
@@ -246,33 +244,11 @@
             txtSalarioEmpleado.Size = new Size(305, 23);
             txtSalarioEmpleado.TabIndex = 27;
             // 
-            // btnCargarConfiguracion
-            // 
-            btnCargarConfiguracion.Location = new Point(51, 411);
-            btnCargarConfiguracion.Name = "btnCargarConfiguracion";
-            btnCargarConfiguracion.Size = new Size(146, 43);
-            btnCargarConfiguracion.TabIndex = 28;
-            btnCargarConfiguracion.Text = "Cargar";
-            btnCargarConfiguracion.UseVisualStyleBackColor = true;
-            btnCargarConfiguracion.Click += btnCargarConfiguracion_Click;
-            // 
-            // btnGuardartxt
-            // 
-            btnGuardartxt.Location = new Point(392, 411);
-            btnGuardartxt.Name = "btnGuardartxt";
-            btnGuardartxt.Size = new Size(146, 43);
-            btnGuardartxt.TabIndex = 29;
-            btnGuardartxt.Text = "Guardar txt";
-            btnGuardartxt.UseVisualStyleBackColor = true;
-            btnGuardartxt.Click += btnGuardartxt_Click;
-            // 
             // FormIngresarEmpleado
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(570, 511);
-            Controls.Add(btnGuardartxt);
-            Controls.Add(btnCargarConfiguracion);
             Controls.Add(txtSalarioEmpleado);
             Controls.Add(label11);
             Controls.Add(lblEditar);
@@ -323,7 +299,7 @@
         private Label lblEditar;
         private Label label11;
         private TextBox txtSalarioEmpleado;
-        private Button btnCargarConfiguracion;
-        private Button btnGuardartxt;
     }
+
+
 }

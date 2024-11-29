@@ -85,8 +85,6 @@ namespace ProyectoCurso
 
             empleados.Add(empleadoCopia); // Agregar la copia a la lista
         }
-
-
         private void EditarEmpleadoSeleccionado()
         {
             if (dgvEmpleados.SelectedRows.Count > 0)
@@ -125,8 +123,6 @@ namespace ProyectoCurso
         {
             if (dgvEmpleados.SelectedRows.Count > 0)
             {
-
-
                 // Confirmar eliminación
                 DialogResult confirmacion = MessageBox.Show(
                     "¿Está seguro de que desea eliminar este empleado?",
@@ -155,12 +151,10 @@ namespace ProyectoCurso
             }
         }
 
-
         private void EliminarEmpleado(object sender, EventArgs e)
         {
             EliminarEmpleadoSeleccionado();
         }
-
 
         private void ActualizarEstado(string mensaje)
         {
@@ -182,5 +176,4 @@ namespace ProyectoCurso
         }
 
     }
-}
-
+} 

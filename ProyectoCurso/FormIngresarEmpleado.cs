@@ -25,7 +25,6 @@ namespace ProyectoCurso
             CargarCargos(); //Inicializar el combobox
             esEdicion = false;
         }
-
         private bool ValidarFormulario()
         {
             // 1. Validar campos vacíos
@@ -115,16 +114,13 @@ namespace ProyectoCurso
 
             return true; // Si todas las validaciones son exitosas
         }
-
         public FormIngresarEmpleado(Empleado empleado)
         {
             InitializeComponent();
             CargarCargos();
             esEdicion = true; // Modo edición
-            btnCargarConfiguracion.Visible = false;
-            btnGuardartxt.Visible = false;
-            lblIngresar.Visible = false; 
-            lblEditar.Visible = true; 
+            lblIngresar.Visible = false;
+            lblEditar.Visible = true;
 
             // Cargar datos del empleado seleccionado en los controles
             txtNombreEmpleado.Text = empleado.Nombre;
@@ -163,7 +159,7 @@ namespace ProyectoCurso
                     return;
                 }
 
-                // Crear o actualizar el empleado
+                // Crear empleado
                 Empleado = new Empleado
                 {
                     ID = mtxtIDEmpleado.Text,
@@ -197,6 +193,8 @@ namespace ProyectoCurso
                     LimpiarControles();
                 }
             }
+             
+
         }
         private void LimpiarControles()
         {
@@ -208,106 +206,6 @@ namespace ProyectoCurso
             txtSalarioEmpleado.Clear();
             dtpNacimientoEmpleado.Value = DateTime.Now;
             dtpContratacionEmpleado.Value = DateTime.Now;
-        }
-
-        private void btnGuardartxt_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-
-            // Mostrar el cuadro de diálogo y verificar si se seleccionó una ubicación para guardar
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string resumen = GenerarResumenConfiguracion();
-
-                // Escribir la configuración en el archivo seleccionado
-                File.WriteAllText(saveFileDialog.FileName, resumen);
-
-                // Mostrar mensaje de confirmación
-                MessageBox.Show("Configuración guardada exitosamente.",
-                    "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        private void btnCargarConfiguracion_Click(object sender, EventArgs e)
-        {
-            // Crear un cuadro de diálogo
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-
-            // Mostrar el cuadro de diálogo y verificar si se seleccionó un archivo
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                // Leer las líneas del archivo
-                string[] configuracion = File.ReadAllLines(openFileDialog.FileName);
-
-                // Aplicar la configuración leída
-                AplicarConfiguracion(configuracion);
-
-                // Mostrar mensaje de confirmación
-                MessageBox.Show("Configuración cargada exitosamente.",
-                    "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        private string GenerarResumenConfiguracion()
-        {
-            // Si no hay empleados, devolver un mensaje adecuado
-            if (empleados.Count == 0)
-            {
-                return "No hay empleados registrados.";
-            }
-
-            // Crear un resumen con la información de los empleados
-            StringBuilder resumen = new StringBuilder();
-
-            foreach (var empleado in empleados)
-            {
-                resumen.AppendLine($"ID: {empleado.ID}");
-                resumen.AppendLine($"Nombre: {empleado.Nombre}");
-                resumen.AppendLine($"Cargo: {empleado.Cargo}");
-                resumen.AppendLine($"Cédula: {empleado.Cedula}");
-                resumen.AppendLine($"Teléfono: {empleado.Telefono}");
-                resumen.AppendLine($"Fecha de Nacimiento: {empleado.FechaNacimiento.ToShortDateString()}");
-                resumen.AppendLine($"Fecha de Contratación: {empleado.FechaContratacion.ToShortDateString()}");
-                resumen.AppendLine($"Salario Mensual: {empleado.SalarioMensual}");
-                resumen.AppendLine("-------------------------------------------------");
-            }
-
-            return resumen.ToString();
-        }
-
-        private void AplicarConfiguracion(string[] configuracion)
-        {
-            // Limpiar la lista actual de empleados
-            empleados.Clear();
-
-            // Recorrer las líneas del archivo de configuración
-            foreach (var line in configuracion)
-            {
-                // Verificar si la línea contiene datos de un empleado (simple validación de formato)
-                if (line.StartsWith("ID:"))
-                {
-                    // Obtener los datos del empleado
-                    string[] empleadoDatos = line.Split(',');
-
-                    // Crear un nuevo empleado y asignar sus datos
-                    Empleado empleado = new Empleado
-                    {
-                        ID = empleadoDatos[0].Split(':')[1].Trim(),
-                        Nombre = empleadoDatos[1].Split(':')[1].Trim(),
-                        Cargo = empleadoDatos[2].Split(':')[1].Trim(),
-                        Cedula = empleadoDatos[3].Split(':')[1].Trim(),
-                        Telefono = empleadoDatos[4].Split(':')[1].Trim(),
-                        FechaNacimiento = DateTime.Parse(empleadoDatos[5].Split(':')[1].Trim()),
-                        FechaContratacion = DateTime.Parse(empleadoDatos[6].Split(':')[1].Trim()),
-                        SalarioMensual = double.Parse(empleadoDatos[7].Split(':')[1].Trim())
-                    };
-
-                    // Agregar el empleado a la lista
-                    empleados.Add(empleado);
-                }
-            }
         }
     }
 }  
